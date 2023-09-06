@@ -33,7 +33,7 @@ public class ReviewTest {
     @Test
     public void testReviewCreation() {
         assertEquals(1L, review.getId());
-        assertEquals("최고!", review.getContent());
+        assertEquals("최고", review.getContent());
         assertEquals(5, review.getStarPoint());
         assertEquals(10, review.getRating());
         assertEquals(writer, review.getWriter());

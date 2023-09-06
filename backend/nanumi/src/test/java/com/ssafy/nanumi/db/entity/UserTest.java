@@ -41,7 +41,7 @@ public class UserTest {
         assertEquals("k99743844@gmail.com", user.getEmail());
         assertEquals("송도 김우진", user.getNickname());
         assertEquals("https://naver.com/profile.jpg", user.getProfileUrl());
-        assertEquals("1234", user.getPassword());
+        assertEquals("123", user.getPassword());
         assertFalse(user.isDeleted());
         assertEquals(mockAddress, user.getAddress());
         assertEquals(mockLoginProvider, user.getLoginProvider());

@@ -20,7 +20,7 @@ public class ProductImageTest {
 
         productImage = ProductImage.builder()
                 .id(1L)
-                .imageUrl("https://google.com/image.jpg")
+                .imageUrl("https://sample.com/image.jpg")
                 .product(product)
                 .build();
     }

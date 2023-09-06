@@ -16,8 +16,8 @@ public class ProductTest {
     void setUp() {
         product = Product.builder()
                 .id(1L)
-                .name("Laptop")
-                .content("This is a laptop")
+                .name("MacBook")
+                .content("MacBook")
                 .isClosed(false)
                 .isDeleted(false)
                 .address(null)  // for simplicity, you can add mock address here
