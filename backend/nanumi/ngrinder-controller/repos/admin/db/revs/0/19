@@ -1,0 +1,42 @@
+PLAIN
+K 11
+targetHosts
+V 0
+
+END
+ENDREP
+id: 0-19.0.r19/39
+type: file
+count: 0
+text: 17 0 810 2280 5325b176e0e834df368d1585f25d86ce 2b4ad93e5eb6e369e712990fbdd5fd02beff868e 18-i/_2
+props: 19 0 26 26 b52a291b299a3031879de1a9534f5b33
+cpath: /run_agent.groovy
+copyroot: 0 /
+
+PLAIN
+K 14
+.gitconfig.yml
+V 17
+file 0-1.0.r1/346
+K 16
+run_agent.groovy
+V 18
+file 0-19.0.r19/39
+K 11
+test.groovy
+V 18
+file 0-14.0.r16/63
+END
+ENDREP
+id: 0.0.r19/417
+type: dir
+pred: 0.0.r18/101
+count: 19
+text: 19 270 134 134 5ed3ba102c35227e3e2a508374f22e0c
+cpath: /
+copyroot: 0 /
+
+_0.0.t18-i add-file true true /run_agent.groovy
+
+
+417 549

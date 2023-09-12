@@ -1,0 +1,25 @@
+PLAIN
+K 14
+.gitconfig.yml
+V 17
+file 0-1.0.r1/346
+K 11
+test.groovy
+V 18
+file 0-14.0.r16/63
+END
+ENDREP
+id: 0.0.r18/101
+type: dir
+pred: 0.0.r17/1191
+count: 18
+text: 18 0 88 88 0d41ecbe86a1f0964592186643f8c66e
+cpath: /
+copyroot: 0 /
+
+0-17.0.r17/823 delete-file false false /run_agent.bat
+
+0-6.0.r8/63 delete-file false false /TestRunner.groovy
+
+
+101 230
