@@ -1,13 +1,11 @@
 package com.ssafy.nanumi.config.jwt;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.ssafy.nanumi.api.request.TokenInfoDTO;
 import com.ssafy.nanumi.api.response.TokenInfoResDTO;
 import com.ssafy.nanumi.config.response.exception.CustomException;
 import com.ssafy.nanumi.config.response.exception.CustomExceptionStatus;
 import com.ssafy.nanumi.db.entity.Authority;
+import com.ssafy.nanumi.db.entity.User;
 import com.ssafy.nanumi.db.entity.UserInfo;
 import com.ssafy.nanumi.db.repository.UserInfoRepository;
 import com.ssafy.nanumi.db.repository.UserRepository;
@@ -28,8 +26,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -85,10 +81,7 @@ public class JwtProvider {
     // 권한정보 획득
     // Spring Security 인증과정에서 권한확인을 위한 기능
     public Authentication getAuthentication(String token) {
-//        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getAccount(token));
-//        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-        UserDetails userDetails = new User("defaultUser", "defaultPassword", authorities);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getAccount(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -99,95 +92,87 @@ public class JwtProvider {
 
     // Authorization Header를 통해 인증을 한다.
     public String resolveToken(HttpServletRequest request) {
-
-//        return request.getHeader("Authorization");
-        return null;
+        return request.getHeader("Authorization");
     }
 
     // 토큰 검증
     public boolean validateToken(String token) {
-//        try {
-//            // Bearer 검증
-//            if (!token.substring(0, "BEARER ".length()).equalsIgnoreCase("BEARER ")) {
-//                return false;
-//            } else {
-//                token = token.split(" ")[1].trim();
-//            }
-//            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
-//            if (claims.getBody().getExpiration().before(new Date())) {
-//                return false;
-//            }
-//            // 만료되었을 시 false
-//            return !claims.getBody().getExpiration().before(new Date());
-//        } catch (Exception e) {
-//            return false;
-//        }
-        return true;
+        try {
+            // Bearer 검증
+            if (!token.substring(0, "BEARER ".length()).equalsIgnoreCase("BEARER ")) {
+                return false;
+            } else {
+                token = token.split(" ")[1].trim();
+            }
+            Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
+            if (claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
+            // 만료되었을 시 false
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public TokenInfoResDTO validateRefreshToken(TokenInfoDTO request) {
-//        try {
-//            // userInfo RT와 비교
-//            String RT = request.getRefreshToken();
-//            UserInfo userInfo = userInfoRepository.findByRefreshToken(RT)
-//                    .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
-//            User user = userRepository.findById(request.getUserId())
-//                    .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
-//            String userInfo_RT = userInfo.getRefreshToken();
-//            if (!RT.equals(userInfo_RT)) {
-//                return TokenInfoResDTO.builder()
-//                        .grantType("Bearer ")
-//                        .accessToken(request.getAccessToken())
-//                        .refreshToken(RT)
-//                        .build();
-//            }
-//
-//            // RT가 만료되지 않았을 때
-//            Jws<Claims> rt_claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(userInfo_RT);
-//            if (rt_claims.getBody().getExpiration().before(new Date())) {
-//                String AT = this.createAccessToken(""+user.getId(), user.getTiers());
-//                // Refresh Token
-//                return TokenInfoResDTO.builder()
-//                        .grantType("Bearer ")
-//                        .accessToken(AT)
-//                        .refreshToken(request.getRefreshToken())
-//                        .build();
-//            }
-//            try {
-//                // AT의 만료여부 확인
-//                Jws<Claims> at_claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(request.getAccessToken());
-//                if (at_claims.getBody().getExpiration().before(new Date())) { // AT만 만료 => AT만 새로.
-//                    return TokenInfoResDTO.builder()
-//                            .grantType("Bearer ")
-//                            .accessToken(request.getAccessToken())
-//                            .refreshToken(request.getRefreshToken())
-//                            .build();
-//                }
-//
-//            } catch (Exception e) {
-//                // AT expired, RT is OK
-//                String AT = this.createAccessToken(""+user.getId(), user.getTiers());
-//                return TokenInfoResDTO.builder()
-//                        .grantType("Bearer ")
-//                        .accessToken(AT)
-//                        .refreshToken(request.getRefreshToken())
-//                        .build();
-//            }
-//            return TokenInfoResDTO.builder()
-//                    .grantType("Bearer ")
-//                    .accessToken(request.getAccessToken())
-//                    .refreshToken(request.getRefreshToken())
-//                    .build();
-//
-//
-//        } catch (Exception e) {
-//            throw new CustomException(CustomExceptionStatus.REQUEST_LOGIN);
-//        }
-        return TokenInfoResDTO.builder()
-                .grantType("Bearer ")
-                .accessToken("defaultAccessToken")
-                .refreshToken("defaultRefreshToken")
-                .build();
+        try {
+            // userInfo RT와 비교
+            String RT = request.getRefreshToken();
+            UserInfo userInfo = userInfoRepository.findByRefreshToken(RT)
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
+            User user = userRepository.findById(request.getUserId())
+                    .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
+            String userInfo_RT = userInfo.getRefreshToken();
+            if (!RT.equals(userInfo_RT)) {
+                return TokenInfoResDTO.builder()
+                        .grantType("Bearer ")
+                        .accessToken(request.getAccessToken())
+                        .refreshToken(RT)
+                        .build();
+            }
+
+            // RT가 만료되지 않았을 때
+            Jws<Claims> rt_claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(userInfo_RT);
+            if (rt_claims.getBody().getExpiration().before(new Date())) {
+                String AT = this.createAccessToken(""+user.getId(), user.getTiers());
+                // Refresh Token
+                return TokenInfoResDTO.builder()
+                        .grantType("Bearer ")
+                        .accessToken(AT)
+                        .refreshToken(request.getRefreshToken())
+                        .build();
+            }
+            try {
+                // AT의 만료여부 확인
+                Jws<Claims> at_claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(request.getAccessToken());
+                if (at_claims.getBody().getExpiration().before(new Date())) { // AT만 만료 => AT만 새로.
+                    return TokenInfoResDTO.builder()
+                            .grantType("Bearer ")
+                            .accessToken(request.getAccessToken())
+                            .refreshToken(request.getRefreshToken())
+                            .build();
+                }
+
+            } catch (Exception e) {
+                // AT expired, RT is OK
+                String AT = this.createAccessToken(""+user.getId(), user.getTiers());
+                return TokenInfoResDTO.builder()
+                        .grantType("Bearer ")
+                        .accessToken(AT)
+                        .refreshToken(request.getRefreshToken())
+                        .build();
+            }
+            return TokenInfoResDTO.builder()
+                    .grantType("Bearer ")
+                    .accessToken(request.getAccessToken())
+                    .refreshToken(request.getRefreshToken())
+                    .build();
+
+
+        } catch (Exception e) {
+            throw new CustomException(CustomExceptionStatus.REQUEST_LOGIN);
+        }
     }
 
 

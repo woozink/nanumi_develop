@@ -1,26 +1,33 @@
 package com.ssafy.nanumi.config.security;
 
+import com.ssafy.nanumi.config.jwt.JwtAuthenticationFilter;
 import com.ssafy.nanumi.config.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -28,7 +35,6 @@ import java.io.IOException;
 public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,21 +51,20 @@ public class SecurityConfig {
                 .authorizeRequests()
                 // 회원가입과 로그인은 모두 승인
 
-//                .antMatchers("/admintest").hasRole("관리자")
-//                .antMatchers("/users/join", "/users/login", "/users/isRTValid", "/users/check/**", "/admin/login",  "/health",
-//                        "/webjars/**", "/ws-stomp/**").permitAll()
+                .antMatchers("/admintest").hasRole("관리자")
+                .antMatchers("/users/join", "/users/login", "/users/isRTValid", "/users/check/**", "/admin/login",  "/health",
+                        "/webjars/**", "/ws-stomp/**").permitAll()
 //                .antMatchers("/api/v2/**", "/swagger-ui.html", "/swagger/**","/swagger-ui/**","/swagger-resources/**", "/v2/api-docs").permitAll()
-//                .antMatchers("/users/**").hasAnyRole("새싹", "나무", "나누미나무", "관리자")
-//                .antMatchers("/actuator/**","/oauth/kakao/**").permitAll()
-//                .antMatchers("/admin/**").hasRole("관리자")
+                .antMatchers("/users/**").hasAnyRole("새싹", "나무", "나누미나무", "관리자")
+                .antMatchers("/actuator/**","/oauth/kakao/**").permitAll()
+                .antMatchers("/admin/**").hasRole("관리자")
                 //관리자 접근 허용
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll()
-                // TODO 우진 위에 한줄 주석 해제
+                .anyRequest().authenticated()
+//                .anyRequest().permitAll()
+
                 .and()
                 // JWT 인증 필터 적용
-                // TODO 우진 . 테스트를 위해 비활
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 // 에러 핸들링
                 .exceptionHandling()
                 .accessDeniedHandler(new AccessDeniedHandler() {

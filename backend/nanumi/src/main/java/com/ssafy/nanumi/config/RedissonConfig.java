@@ -35,7 +35,6 @@ public class RedissonConfig {
     @Value("${spring.redis.password}")
     private String redisPassword;
 
-
     private static final String REDISSON_HOST_PREFIX = "redis://";
 
     @Bean
