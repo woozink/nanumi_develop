@@ -30,27 +30,45 @@ import static com.ssafy.nanumi.config.response.exception.CustomExceptionStatus.*
 @Transactional
 @RequiredArgsConstructor
 public class KakaoOauthService {
-    @Value("${spring.security.oauth2.registration.kakao.client-id}")
+//    @Value("${spring.security.oauth2.registration.kakao.client-id}")
+//    private String clientId;
+//
+//    @Value("${spring.security.oauth2.registration.kakao.redirect-uri}")
+//    private String redirctURI;
+//    @Value("${spring.security.oauth2.registration.kakao.client-id}")
+//    private String restApiKey;
+//
+//    @Value("${spring.security.oauth2.registration.kakao.client-secret}")
+//    private String adminKey;
+
+    @Value("${KAKAO_CLIENT_ID}")
     private String clientId;
 
-    @Value("${spring.security.oauth2.registration.kakao.redirect-uri}")
+    @Value("${KAKAO_REDIRECT_URI}")
     private String redirctURI;
-    @Value("${spring.security.oauth2.registration.kakao.client-id}")
+
+    @Value("${KAKAO_CLIENT_ID}")
     private String restApiKey;
 
-    @Value("${spring.security.oauth2.registration.kakao.client-secret}")
+    @Value("${KAKAO_CLIENT_SECRET}")
     private String adminKey;
+
 
     private final UserRepository userRepository;
     private final LoginProviderRepository loginProviderRepository;
     private final UserService userService;
 
 
+
+
+    public String loginPage(String fcmToken) {
+        return "https://kauth.kakao.com/oauth/authorize?client_id="+restApiKey+"&redirect_uri="+redirctURI+"&state="+fcmToken+"&response_type=code";
+    }
 //    public HttpStatus logout(String accessToken){
 //        // accessToken 으로 사용자 정보 가져옴
 //        User user = userService.getUserByAT(accessToken);
 //
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();o
 //
 //        HashMap<String, String> request = new HashMap<>();
 //        request.put("target_id_type","user_id");
@@ -76,9 +94,7 @@ public class KakaoOauthService {
 //        return response.getStatusCode();
 //    }
 
-    public String loginPage(String fcmToken) {
-        return "https://kauth.kakao.com/oauth/authorize?client_id="+restApiKey+"&redirect_uri="+redirctURI+"&state="+fcmToken+"&response_type=code";
-    }
+
 
     public UserLoginResDTO kakaoLogin(String code, String fcmToken) throws JsonProcessingException {
 

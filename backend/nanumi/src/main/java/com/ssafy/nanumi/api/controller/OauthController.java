@@ -16,7 +16,7 @@ import static com.ssafy.nanumi.config.response.exception.CustomSuccessStatus.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/oauth/kakao")
-@CrossOrigin(origins = {"http://localhost:3000", "https://k8b103.p.ssafy.io", "https://kapi.kakao.com"})
+//@CrossOrigin(origins = {"http://localhost:3000", "https://k8b103.p.ssafy.io", "https://kapi.kakao.com"})
 public class OauthController {
     private final KakaoOauthService kakaoOauthService;
     private final ResponseService responseService;
