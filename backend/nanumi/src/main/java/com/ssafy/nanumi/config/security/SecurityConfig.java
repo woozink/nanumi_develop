@@ -83,25 +83,25 @@ public class SecurityConfig {
                         // JSON 객체를 문자열로 변환하고 응답에 쓰기
                         response.getWriter().write(jsonResponse.toString());
                     }
-                })
-                .authenticationEntryPoint(new AuthenticationEntryPoint() {
-                    @Override
-                    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-                        // 인증문제가 발생했을 때 이 부분을 호출한다.
-                        response.setStatus(401);
-                        response.setCharacterEncoding("utf-8");
-                        response.setContentType("application/json; charset=UTF-8");
-
-                        // JSON 객체 생성
-                        JSONObject jsonResponse = new JSONObject();
-                        jsonResponse.put("code", 401);
-                        jsonResponse.put("message", "인증되지 않은 사용자입니다.");
-
-                        // JSON 객체를 문자열로 변환하고 응답에 쓰기
-                        response.getWriter().write(jsonResponse.toString());
-                    }
                 });
-
+//                .authenticationEntryPoint(new AuthenticationEntryPoint() {
+//                    @Override
+//                    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+//                        // 인증문제가 발생했을 때 이 부분을 호출한다.
+//                        response.setStatus(401);
+//                        response.setCharacterEncoding("utf-8");
+//                        response.setContentType("application/json; charset=UTF-8");
+//
+//                        // JSON 객체 생성
+//                        JSONObject jsonResponse = new JSONObject();
+//                        jsonResponse.put("code", 401);
+//                        jsonResponse.put("message", "인증되지 않은 사용자입니다.");
+//
+//                        // JSON 객체를 문자열로 변환하고 응답에 쓰기
+//                        response.getWriter().write(jsonResponse.toString());
+//                    }
+//                });
+//
         return http.build();
     }
 

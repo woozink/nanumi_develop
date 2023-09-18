@@ -1,0 +1,44 @@
+2023-09-17 09:14:40,399 INFO  Setting of nGrinder local DNS successfully
+2023-09-17 09:14:40,428 INFO  The Grinder version 3.9.1
+2023-09-17 09:14:40,441 INFO  Java(TM) SE Runtime Environment 1.8.0_201-b09: Java HotSpot(TM) 64-Bit Server VM (25.201-b09, mixed mode) on Linux amd64 5.15.49-linuxkit-pr
+2023-09-17 09:14:40,452 INFO  time zone is GMT (+0000)
+2023-09-17 09:14:40,946 INFO  worker process 0 of agent number 0
+2023-09-17 09:14:41,137 INFO  Instrumentation agents: byte code transforming instrumenter for Java
+2023-09-17 09:14:48,209 INFO  registered plug-in net.grinder.plugin.http.HTTPPlugin
+2023-09-17 09:14:48,555 INFO  before process.
+2023-09-17 09:14:48,563 INFO  Running "test.groovy" using GroovyScriptEngine running with groovy version: 3.0.5
+2023-09-17 09:14:48,816 INFO  before thread.
+2023-09-17 09:14:48,821 INFO  starting, will do 1 run
+2023-09-17 09:14:48,823 INFO  Start time is 1694942088823 ms since Epoch
+2023-09-17 09:14:48,868 INFO  before. init headers and cookies
+2023-09-17 09:14:49,061 ERROR java.util.concurrent.ExecutionException: java.net.UnknownHostException: app
+java.net.UnknownHostException: app
+	at org.apache.hc.core5.reactor.SingleCoreIOReactor.validateAddress(SingleCoreIOReactor.java:285)
+	at org.apache.hc.core5.reactor.SingleCoreIOReactor.processConnectionRequest(SingleCoreIOReactor.java:313)
+	at org.apache.hc.core5.reactor.SingleCoreIOReactor.processPendingConnectionRequests(SingleCoreIOReactor.java:302)
+	at org.apache.hc.core5.reactor.SingleCoreIOReactor.doExecute(SingleCoreIOReactor.java:139)
+	at org.apache.hc.core5.reactor.AbstractSingleCoreIOReactor.execute(AbstractSingleCoreIOReactor.java:85)
+	at org.apache.hc.core5.reactor.IOReactorWorker.run(IOReactorWorker.java:44)
+2023-09-17 09:14:49,067 INFO  finished 1 run
+2023-09-17 09:14:49,075 INFO  elapsed time is 251 ms
+2023-09-17 09:14:49,077 INFO  Final statistics for this process:
+2023-09-17 09:14:49,117 INFO  
+             Tests        Errors       Mean Test    Test Time    TPS          Mean         Response     Response     Mean time to Mean time to Mean time to 
+                                       Time (ms)    Standard                  response     bytes per    errors       resolve host establish    first byte   
+                                                    Deviation                 length       second                                 connection                
+                                                    (ms)                                                                                                    
+
+Test 1       0            1            �            0.00         0.00         �            0.00         0            �            �            �             "Test1"
+
+Totals       0            1            �            0.00         0.00         �            0.00         0            �            �            �            
+
+  Tests resulting in error only contribute to the Errors column.          
+  Statistics for individual tests can be found in the data file, including
+  (possibly incomplete) statistics for erroneous tests. Composite tests   
+  are marked with () and not included in the totals.                      
+
+
+
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+2023-09-17 09:14:48,583 INFO  validation-0: Starting threads
+2023-09-17 09:14:49,120 INFO  validation-0: Finished

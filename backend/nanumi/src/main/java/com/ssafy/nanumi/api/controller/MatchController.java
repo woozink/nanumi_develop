@@ -11,6 +11,7 @@ import static com.ssafy.nanumi.config.response.exception.CustomSuccessStatus.*;
 
 @RestController
 @RequiredArgsConstructor
+// TODO 이 부분 내가 수정함
 @CrossOrigin(origins = {"http://localhost:3000", "https://k8b103.p.ssafy.io"})
 public class MatchController {
     private final MatchService matchService;

@@ -98,7 +98,7 @@ public class UserController {
 
     /* 회원 정보 수정 */
     @PatchMapping("/users/{user-id}")
-    public CustomDataResponse<UserSimpleDTO> updateUser( @RequestHeader("Authorization") String accessToken,
+    public CustomDataResponse<UserSimpleDTO> updateUser( @RequestHeader(value = "Authorization", required = false) String accessToken,
                                      @RequestParam("nickname") String nickname,
                                      @RequestParam("profileUrl") MultipartFile profileUrl) throws IOException {
         long userId = userService.userByAT(accessToken);

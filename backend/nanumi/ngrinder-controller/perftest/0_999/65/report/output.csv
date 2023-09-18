@@ -1,7 +1,0 @@
-DateTime,vuser,Tests,Errors,Mean_Test_Time_(ms),Test_Time_Standard_Deviation_(ms),TPS,Mean_response_length,Response_bytes_per_second,Response_errors,Mean_time_to_resolve_host,Mean_time_to_establish_connection,Mean_time_to_first_byte
-2023-09-13 01:24:59,1,0,3000,0,0,0,0,0,0,0,0,0
-2023-09-13 01:25:01,1,0,5271,0,0,0,0,0,0,0,0,0
-2023-09-13 01:25:03,1,0,8453,0,0,0,0,0,0,0,0,0
-2023-09-13 01:25:05,1,0,6471,0,0,0,0,0,0,0,0,0
-2023-09-13 01:25:07,1,0,6610,0,0,0,0,0,0,0,0,0
-2023-09-13 01:25:09,1,0,7225,0,0,0,0,0,0,0,0,0

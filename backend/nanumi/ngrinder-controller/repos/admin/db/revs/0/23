@@ -1,0 +1,41 @@
+id: 0-23.0.r23/0
+type: dir
+count: 0
+cpath: /lib
+copyroot: 0 /
+
+PLAIN
+K 14
+.gitconfig.yml
+V 17
+file 0-1.0.r1/346
+K 3
+lib
+V 16
+dir 0-23.0.r23/0
+K 16
+run_agent.groovy
+V 19
+file 0-19.0.r20/150
+K 11
+test.groovy
+V 18
+file 0-14.0.r21/59
+K 12
+test1.groovy
+V 19
+file 0-22.0.r22/903
+END
+ENDREP
+id: 0.0.r23/284
+type: dir
+pred: 0.0.r22/1324
+count: 23
+text: 23 63 208 208 3c4b1cd03c534da1abd631781527f618
+cpath: /
+copyroot: 0 /
+
+_0.0.t22-m add-dir false false /lib
+
+
+284 416

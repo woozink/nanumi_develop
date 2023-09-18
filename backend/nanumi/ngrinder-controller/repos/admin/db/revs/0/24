@@ -1,0 +1,45 @@
+id: 0-24.0.r24/0
+type: dir
+count: 0
+cpath: /resources
+copyroot: 0 /
+
+PLAIN
+K 14
+.gitconfig.yml
+V 17
+file 0-1.0.r1/346
+K 3
+lib
+V 16
+dir 0-23.0.r23/0
+K 9
+resources
+V 16
+dir 0-24.0.r24/0
+K 16
+run_agent.groovy
+V 19
+file 0-19.0.r20/150
+K 11
+test.groovy
+V 18
+file 0-14.0.r21/59
+K 12
+test1.groovy
+V 19
+file 0-22.0.r22/903
+END
+ENDREP
+id: 0.0.r24/326
+type: dir
+pred: 0.0.r23/284
+count: 24
+text: 24 69 244 244 644dc5fba6322e310cd697e12ecd9266
+cpath: /
+copyroot: 0 /
+
+_0.0.t23-n add-dir false false /resources
+
+
+326 457

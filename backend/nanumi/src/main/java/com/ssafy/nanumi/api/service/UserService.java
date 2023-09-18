@@ -8,6 +8,7 @@ import com.ssafy.nanumi.common.Image;
 import com.ssafy.nanumi.common.provider.Provider;
 import com.ssafy.nanumi.config.jwt.JwtProvider;
 import com.ssafy.nanumi.config.response.exception.CustomException;
+import com.ssafy.nanumi.config.response.exception.CustomExceptionStatus;
 import com.ssafy.nanumi.db.entity.*;
 import com.ssafy.nanumi.db.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,10 @@ import static com.ssafy.nanumi.config.response.exception.CustomExceptionStatus.*
 @Transactional
 @RequiredArgsConstructor
 public class UserService {
+
+    public class Constants {
+        public static final long GUEST_USER_ID = 1L;
+    }
     private final UserRepository userRepository;
     private final UserInfoRepository userInfoRepository;
     private final AddressRepository addressRepository;
@@ -249,12 +254,27 @@ public class UserService {
         return jwtProvider.validateRefreshToken(request);
     }
 
+//    public long userByAT(String accessToken) {
+//
+//            String token = accessToken.split(" ")[1].trim();
+//            User user = userRepository.findById(Long.parseLong(jwtProvider.getAccount(token)))
+//                        .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
+//            return user.getId();
+//    }
+
     public long userByAT(String accessToken) {
-            String token = accessToken.split(" ")[1].trim();
-            User user = userRepository.findById(Long.parseLong(jwtProvider.getAccount(token)))
-                        .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
-            return user.getId();
+        if (accessToken == null || accessToken.trim().isEmpty()) {
+            return Constants.GUEST_USER_ID; // GUEST_USER_ID는 상수로 정의된 게스트 사용자의 ID
+        }
+
+        String token = accessToken.split(" ")[1].trim();
+
+        User user = userRepository.findById(Long.parseLong(jwtProvider.getAccount(token)))
+                .orElseThrow(() -> new CustomException(NOT_FOUND_USER_INFO));
+
+        return user.getId();
     }
+
 
     public User getUserByAT(String accessToken){
         String token = accessToken.split(" ")[1].trim();
